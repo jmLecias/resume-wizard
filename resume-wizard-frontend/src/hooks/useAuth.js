@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo, useEffect, useState } from "react";
 import StorageService from "../services/StorageService";
-import ResumeWizardApi, {resumeWizardBaseUrl} from "../api/api";
+import ResumeWizardApi, { resumeWizardBaseUrl } from "../api/api";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const AuthContext = createContext();
@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
 
             ss.storeItem('access_token', accessToken);
             ss.storeItem('user', JSON.stringify(user));
-            
+
             return true;
         } else {
             return false;
@@ -43,7 +43,6 @@ export const AuthProvider = ({ children }) => {
 
             ss.storeItem('access_token', accessToken);
             ss.storeItem('user', JSON.stringify(user));
-
             return true;
         } else {
             return false;
@@ -52,10 +51,10 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         const response = await ResumeWizardApi.post('/logout');
-        
+
         ss.removeItem('access_token');
         ss.removeItem('user');
-        
+
         if (response.status === 200) {
 
             return true;

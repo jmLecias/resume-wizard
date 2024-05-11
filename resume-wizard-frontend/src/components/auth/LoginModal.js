@@ -52,7 +52,7 @@ const LoginModal = ({ show, onHide, onActionEnded, onRegisterClick }) => {
         setIsLoggingIn(true);
         login(input).then(() => {
             onActionEnded();
-            setIsLoggingIn(false);
+            handleClose();
         }).catch((error) => {
             setErrors(error.response.data.errors);
             setIsLoggingIn(false);

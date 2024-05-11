@@ -56,7 +56,7 @@ const RegisterModal = ({ show, onHide, onActionEnded, onLoginClick }) => {
         setIsRegistering(true);
         register(input).then(() => {
             onActionEnded();
-            setIsRegistering(false);
+            handleClose();
         }).catch((error) => {
             setErrors(error.response.data.errors);
             setIsRegistering(false);

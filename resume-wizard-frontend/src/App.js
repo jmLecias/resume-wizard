@@ -5,7 +5,10 @@ import 'chart.js/auto'; // VERY IMPORTANT
 import 'react-pro-sidebar/dist/css/styles.css'; // VERY IMPORTANT
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
-import LandingPage from './pages/other/LandingPage';
+import Landing from './pages/other/Landing';
+import User from './pages/user/User';
+
+import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 
 import { AuthProvider } from './hooks/useAuth';
 
@@ -14,7 +17,15 @@ function App() {
     <Router>
       <AuthProvider>
         <Routes>
-          <Route index element={<LandingPage content={'explore'} />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="/user/*" element={
+            <AuthenticatedRoute>
+              <Routes>
+                <Route path="" element={<User/>} />
+                {/* <Route path="*" element={<User content={'not_found'} />} /> */}
+              </Routes>
+            </AuthenticatedRoute>
+          } />
         </Routes>
       </AuthProvider>
     </Router>
