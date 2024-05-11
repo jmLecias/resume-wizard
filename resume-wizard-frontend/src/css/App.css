@@ -1,0 +1,21 @@
+:root {
+  --primary-color: #A82122;
+  --primary-color-light: #f53535;
+  --primary-color-dark: #aa1e1e;
+}
+
+* {
+  font-family: 'Poppins';
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100%;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
