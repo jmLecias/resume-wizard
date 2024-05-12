@@ -8,6 +8,7 @@ import RegisterModal from '../../components/auth/RegisterModal';
 
 import UserHeader from '../../components/headers/UserHeader';
 import UserHome from './UserHome';
+import UserResumeInput from './UserResumeInput';
 
 import { useAuth } from '../../hooks/useAuth';
 
@@ -20,7 +21,9 @@ const User = ({content}) => {
             <ToastContainer />
             <div className="user-main-container" >
                 <UserHeader isLoggedIn={true}/>
-                <UserHome />
+
+                {content === "home" && (<UserHome />)}
+                {content === "create" && (<UserResumeInput />)}
             </div>
         </div>
     );

@@ -41,10 +41,14 @@ html {
 
 .user-main {
   grid-area: main;
+  width: 100%;
+  padding: 0 10%;
+  justify-self: center;
+  overflow-y: auto;
 }
 
 header {
-  padding: 20px 30px;
+  padding: 20px 10%;
   color: var(--text-color);
   background-color: var(--light);
   display: flex;
@@ -114,5 +118,12 @@ header {
   border-radius: 10px !important;
 }
 
+.form-container {
+  padding: 3em;
+  background-color: var(--light);
+  border-radius: 10px;
+  text-align: left;
+  margin-bottom: 20px;
+}
 
 

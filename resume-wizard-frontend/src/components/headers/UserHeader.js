@@ -23,7 +23,7 @@ const UserHeader = ({ isLoggedIn, onRegisterClick, onLoginClick }) => {
 
     return (
         <header className='user-header'>
-            <span className='logo-text'>Resume Wizard</span>
+            <span className='logo-text cursor-pointer' onClick={() => navigate('/home')}>Resume Wizard</span>
 
             {!isLoggedIn && (
                 <div className='d-flex align-items-center'>

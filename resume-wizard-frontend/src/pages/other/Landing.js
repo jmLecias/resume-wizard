@@ -35,7 +35,7 @@ const Landing = () => {
 
     const handleActionEnded = () => {
         handleClose();
-        navigate("/user");
+        navigate("/home");
     }
 
     return (
