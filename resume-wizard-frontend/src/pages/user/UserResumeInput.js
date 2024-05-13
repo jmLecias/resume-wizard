@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import FormWizard from "react-form-wizard-component";
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import PDFFile from '../../components/pdf/PdfFile';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -18,11 +20,14 @@ import { LuGoal } from "react-icons/lu";
 
 const UserResumeInput = () => {
     const navigate = useNavigate();
+    const [showDownloadLink, setShowDownloadLink] = useState(false);
 
     const handleComplete = () => {
         console.log("Form completed!");
         // Handle form completion logic here
+        setShowDownloadLink(true);
     };
+
     const tabChanged = ({ prevIndex, nextIndex }) => {
         console.log("prevIndex", prevIndex);
         console.log("nextIndex", nextIndex);
@@ -53,6 +58,12 @@ const UserResumeInput = () => {
                     <ObjectiveForm />
                 </FormWizard.TabContent>
             </FormWizard>
+
+            {showDownloadLink && (
+                <PDFDownloadLink document={<PDFFile />} filename="FORM">
+                    {({ loading }) => (loading ? <button>Loading Document...</button> : <button>Download</button>)}
+                </PDFDownloadLink>
+            )}
 
             <style>
                 {`
