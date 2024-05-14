@@ -5,12 +5,15 @@ import Dropdown from './Dropdown';
 import { TiUpload } from "react-icons/ti";
 import { IoNotifications } from "react-icons/io5";
 import { IoMdMusicalNote } from "react-icons/io";
+import { HiDocumentChartBar } from "react-icons/hi2";
 
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
+
+
 const UserHeader = ({ isLoggedIn, onRegisterClick, onLoginClick }) => {
-    const {logout} = useAuth()
+    const { logout } = useAuth()
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -23,8 +26,10 @@ const UserHeader = ({ isLoggedIn, onRegisterClick, onLoginClick }) => {
 
     return (
         <header className='user-header'>
-            <span className='logo-text cursor-pointer' onClick={() => navigate('/home')}>Resume Wizard</span>
-
+            <div className='d-flex flex-row'>
+                <HiDocumentChartBar size={24} title='Document' className='custom-logo-adjustments' />
+                <span className='logo-text cursor-pointer fw-bold' onClick={() => navigate('/home')}>Resume Wizard</span>
+            </div>
             {!isLoggedIn && (
                 <div className='d-flex align-items-center'>
                     <span className='header-text' onClick={() => onLoginClick()}>Login</span>

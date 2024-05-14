@@ -18,6 +18,8 @@ import { MdOutlineWorkOutline } from "react-icons/md";
 import { GrCertificate } from "react-icons/gr";
 import { LuGoal } from "react-icons/lu";
 
+import formpagebg from '../../components/images/formpagebg.jpg'
+
 const UserResumeInput = () => {
     const navigate = useNavigate();
     const [showDownloadLink, setShowDownloadLink] = useState(false);
@@ -34,7 +36,7 @@ const UserResumeInput = () => {
     };
 
     return (
-        <div className='user-main custom-scrollbar'>
+        <div className='user-main custom-scrollbar' style={{ backgroundImage: `url(${formpagebg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
             <FormWizard
                 shape="circle"
                 stepSize="sm"

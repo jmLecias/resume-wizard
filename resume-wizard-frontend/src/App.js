@@ -13,7 +13,7 @@ import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 
 import { AuthProvider } from './hooks/useAuth';
 import PDFFile from './components/pdf/PdfFile';
-import { PDFDownloadLink } from '@react-pdf/renderer';
+
 
 function App() {
   return (
@@ -27,7 +27,6 @@ function App() {
                 <Route path="pdf" element={<PDFFile content="home" />} />
                 <Route path="home" element={<User content="home" />} />
                 <Route path="create" element={<User content="create" />} />
-                {/* <Route path="*" element={<User content={'not_found'} />} /> */}
               </Routes>
             </AuthenticatedRoute>
           } />
