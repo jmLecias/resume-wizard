@@ -12,23 +12,24 @@ import User from './pages/user/User';
 import AuthenticatedRoute from './components/routes/AuthenticatedRoute';
 
 import { AuthProvider } from './hooks/useAuth';
+import { ResumeProvider } from './hooks/useResume';
 
 function App() {
   return (
     <Router>
       <AuthProvider>
+      <ResumeProvider>
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/*" element={
-            <AuthenticatedRoute>
-              <Routes>
-                <Route path="home" element={<User content="home"/>} />
-                <Route path="create" element={<User content="create" />} />
-                {/* <Route path="*" element={<User content={'not_found'} />} /> */}
-              </Routes>
-            </AuthenticatedRoute>
+            <Routes>
+              <Route path="home" element={<User content="home" />} />
+              <Route path="create" element={<User content="create" />} />
+              {/* <Route path="*" element={<User content={'not_found'} />} /> */}
+            </Routes>
           } />
         </Routes>
+      </ResumeProvider>
       </AuthProvider>
     </Router>
   );

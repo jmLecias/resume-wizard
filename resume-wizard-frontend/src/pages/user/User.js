@@ -17,7 +17,7 @@ const User = ({content}) => {
     const navigate = useNavigate();
 
     return (
-        <div>
+        <>
             <ToastContainer />
             <div className="user-main-container" >
                 <UserHeader isLoggedIn={true}/>
@@ -25,7 +25,7 @@ const User = ({content}) => {
                 {content === "home" && (<UserHome />)}
                 {content === "create" && (<UserResumeInput />)}
             </div>
-        </div>
+        </>
     );
 }
 

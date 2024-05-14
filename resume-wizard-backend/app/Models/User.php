@@ -43,6 +43,27 @@ class User extends Authenticatable implements JWTSubject
         'password' => 'hashed',
     ];
 
+    public function resumes()
+    {
+        return $this->hasMany(Resume::class);
+    }
+
+    public function educations()
+    {
+        return $this->hasMany(Education::class);
+    }
+
+    public function works()
+    {
+        return $this->hasMany(Work::class);
+    }
+
+    public function certificates()
+    {
+        return $this->hasMany(Certificate::class);
+    }
+
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

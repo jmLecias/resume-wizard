@@ -23,4 +23,6 @@ Route::middleware('auth.jwt')->group(function () {
     Route::post('/refresh', 'App\Http\Controllers\AuthController@refresh');
     Route::post('/me', 'App\Http\Controllers\AuthController@me');
     Route::post('/logout', 'App\Http\Controllers\AuthController@logout')->name('logout');
+    
+    Route::post('/resume/create', 'App\Http\Controllers\ResumeController@store');
 });

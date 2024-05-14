@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Button from 'react-bootstrap/esm/Button';
-import FormWizard from "react-form-wizard-component";
+import { ToastContainer, toast } from 'react-toastify';
+import FormStepper from '../../components/forms/FormStepper';
+import PdfDownloadModal from '../../components/modals/PdfDownloadModal';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -18,47 +20,141 @@ import { LuGoal } from "react-icons/lu";
 
 const UserResumeInput = () => {
     const navigate = useNavigate();
+    const personalFormRef = useRef(null);
+    const educationFormRef = useRef(null);
+    const workFormRef = useRef(null);
+    const certificationFormRef = useRef(null);
+    const objectiveFormRef = useRef(null);
 
-    const handleComplete = () => {
-        console.log("Form completed!");
-        // Handle form completion logic here
+    const [showDownload, setShowDownload] = useState(false);
+
+    const [resumeDetails, setResumeDetails] = useState({
+        personal: null,
+        education: null,
+        work: null,
+        certification: null,
+        objective: null,
+    });
+
+    useEffect(() => {
+        console.log(resumeDetails);
+    }, [resumeDetails]);
+
+    const tabs = [
+        {
+            index: 0,
+            name: 'personal',
+            title: 'Personal Information',
+            icon: <FaRegUser size={22} />,
+            content: <PersonalForm ref={personalFormRef} />,
+            ref: personalFormRef,
+        },
+        {
+            index: 1,
+            name: 'education',
+            title: 'Education',
+            icon: <MdOutlineSchool size={30} />,
+            content: <EducationForm ref={educationFormRef} />,
+            ref: educationFormRef,
+        },
+        {
+            index: 2,
+            name: 'work',
+            title: 'Work',
+            icon: <MdOutlineWorkOutline size={30} />,
+            content: <WorkForm ref={workFormRef} />,
+            ref: workFormRef,
+        },
+        {
+            index: 3,
+            name: 'certification',
+            title: 'Certifications',
+            icon: <GrCertificate size={27} />,
+            content: <CertificationForm ref={certificationFormRef} />,
+            ref: certificationFormRef,
+        },
+        {
+            index: 4,
+            name: 'objective',
+            title: 'Career Objective',
+            icon: <LuGoal size={30} />,
+            content: <ObjectiveForm ref={objectiveFormRef} />,
+            ref: objectiveFormRef,
+        },
+    ];
+
+    const [currentTab, setCurrentTab] = useState(tabs[0]);
+
+
+    const handleTabChange = (prevTab, currTab) => {
+        if (resumeDetails[currTab.name]) {
+            setCurrentTab(currTab);
+            return;
+        }
+
+        if (prevTab.ref.current.checkValidity() === true) {
+            tabs.map(tab => {
+                if (resumeDetails[tab.name]) {
+                    setResumeDetails((prev) => ({
+                        ...prev,
+                        [tab.name]: tab.ref.current.getInputs(),
+                    }))
+                }
+            });
+
+            setResumeDetails(prev => ({
+                ...prev,
+                [prevTab.name]: prevTab.ref.current.getInputs(),
+            }));
+            setCurrentTab(currTab);
+        } else {
+            setCurrentTab(prevTab);
+        }
     };
-    const tabChanged = ({ prevIndex, nextIndex }) => {
-        console.log("prevIndex", prevIndex);
-        console.log("nextIndex", nextIndex);
+
+    const handleFinishClick = () => {
+        setShowDownload(true);
+        const lastIndex = tabs.length - 1;
+        if (tabs[lastIndex].ref.current.checkValidity() === true) {
+            tabs.map(tab => {
+                if (resumeDetails[tab.name]) {
+                    setResumeDetails((prev) => ({
+                        ...prev,
+                        [tab.name]: tab.ref.current.getInputs(),
+                    }))
+                }
+            });
+
+            setResumeDetails(prev => ({
+                ...prev,
+                [tabs[lastIndex].name]: tabs[lastIndex].ref.current.getInputs(),
+            }));
+        }
     };
+
+    const handleCloseModal = () => {
+        setShowDownload(false);
+    }
 
     return (
-        <div className='user-main custom-scrollbar'>
-            <FormWizard
-                shape="circle"
-                stepSize="sm"
-                color="var(--primary-color-light)"
-                onComplete={handleComplete}
-                onTabChange={tabChanged}
-            >
-                <FormWizard.TabContent title="Personal Details" icon={<FaRegUser />}>
-                    <PersonalForm />
-                </FormWizard.TabContent>
-                <FormWizard.TabContent title="Education" icon={<MdOutlineSchool size={25} />}>
-                    <EducationForm />
-                </FormWizard.TabContent>
-                <FormWizard.TabContent title="Work" icon={<MdOutlineWorkOutline size={25} />}>
-                    <WorkForm />
-                </FormWizard.TabContent>
-                <FormWizard.TabContent title="Certifications" icon={<GrCertificate size={25} />}>
-                    <CertificationForm />
-                </FormWizard.TabContent>
-                <FormWizard.TabContent title="Career Objective" icon={<LuGoal size={25} />}>
-                    <ObjectiveForm />
-                </FormWizard.TabContent>
-            </FormWizard>
-
-            <style>
-                {`
-                    @import url("https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css");
-                `}
-            </style>
+        <div
+            className='user-main custom-scrollbar'
+            style={{ backgroundImage: `url(/images/formpagebg.jpg)`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        >
+            <FormStepper
+                tabs={tabs}
+                onTabChange={handleTabChange}
+                onBackClick={() => { }}
+                onNextClick={() => { }}
+                onFinish={handleFinishClick}
+                currentTab={currentTab}
+                setCurrentTab={setCurrentTab}
+            />
+            <PdfDownloadModal
+                show={showDownload}
+                onHide={handleCloseModal}
+                details={resumeDetails}
+            />
         </div>
     );
 }

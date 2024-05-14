@@ -23,8 +23,6 @@ export const AuthProvider = ({ children }) => {
             const accessToken = response.data.access_token;
             const user = response.data.user;
 
-            console.log(user);
-
             ss.storeItem('access_token', accessToken);
             ss.storeItem('user', JSON.stringify(user));
 
